@@ -28,12 +28,12 @@ class RecordList extends Component {
                             {
                                 this.props.recordStore.recordList.map( (record, ix) => {
                                     return(
-                                        <TableRow>
+                                        <TableRow key={ix}>
                                             <TableCell>
                                                 {record.name} {' '} {record.surname}
                                             </TableCell>
                                             <TableCell>
-                                                {record.plan}
+                                                {record.country}
                                             </TableCell>
                                             <TableCell>
                                                 {record.birthday}
