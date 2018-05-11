@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
+
+import { compose } from 'redux';
 import { Field, reduxForm } from 'redux-form';
-import { TextField, DatePicker, Select } from 'redux-form-material-ui';
+import { TextField, Select } from 'redux-form-material-ui';
+import { connect } from 'react-redux';
+
 import { MenuItem } from 'material-ui/Menu';
+import { Button } from 'material-ui';
+import  Grid  from 'material-ui/Grid';
+import { getCountries } from '../redux/actions';
 
 class InputForm extends Component {
+    componentDidMount(){
+        this.props.dispatch(getCountries());
+    }
+
     render() {
+        const { handleSubmit, submitting } = this.props;
+
         return(
-            <form>
+            <form onSubmit={handleSubmit}>
+
                 <div>
                     <Field 
                         name="name" 
                         component={TextField} 
                         label="Name"
                         fullWidth
+                        autoComplete='off'
                     />
                 </div>
                 <div>
@@ -21,13 +36,24 @@ class InputForm extends Component {
                         component={TextField} 
                         label="Surname"
                         fullWidth
+                        autoComplete='off'
                     />
                 </div>    
                 <div>
-                    <Field name="plan" component={Select} placeholder="Select a plan" fullWidth>
-                        <MenuItem value="monthly">Monthly</MenuItem>
-                        <MenuItem value="yearly">Yearly</MenuItem>
-                        <MenuItem value="lifetime">Lifetime</MenuItem>
+                    <Field 
+                        name="country" 
+                        component={Select} 
+                        label="Select country" 
+                        fullWidth
+                    >
+                    
+                        {
+                            
+                            this.props.countriesStore.countries.map((country, ix) =>{
+                                return (
+                                )
+                            })
+                        }
                     </Field>
                 </div>
                 <div>
@@ -37,14 +63,29 @@ class InputForm extends Component {
                         label="Birthday"
                         fullWidth
                     />
+                </div>
+                <div>
+                    <Button 
+                        variant="raised"
+                        type="submit"
+                        disabled={submitting}
+                        color="primary"
+                    >
+                        Save
+                    </Button>    
                 </div>    
             </form>
         )
     }
 }
 
-InputForm = reduxForm({
-    form: 'contact'
-    })(InputForm);
+function mapStateToProps(state) {
+    return state;
+}
 
-export default InputForm;
+export default compose(
+    reduxForm({
+        form: 'contact'
+        }),
+       connect(mapStateToProps), 
+)(InputForm);
