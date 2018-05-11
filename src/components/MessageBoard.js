@@ -29,7 +29,7 @@ const styles = theme => ({
   });
 class MessageBoard extends Component {
     handleFadeOut = () => {
-        return setTimeout(this.props.dispatch(fadeOutMessage()),3000);
+        return this.props.dispatch(fadeOutMessage());
     }
     render() {
         const { classes } = this.props;
