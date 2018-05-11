@@ -20,8 +20,10 @@ export function newMessage(record){
     }
 }
 export function fadeOutMessage(){
-    return {
-        type: ERASE_MESSAGE
+    return dispatch => {
+        setTimeout(() => {
+            dispatch({ type: ERASE_MESSAGE })
+          }, 5000)
     }
 }
 
