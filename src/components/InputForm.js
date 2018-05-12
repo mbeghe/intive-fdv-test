@@ -10,7 +10,13 @@ import { Button, Paper } from 'material-ui';
 import  Grid  from 'material-ui/Grid';
 import { getCountries } from '../redux/actions';
 import { withStyles } from 'material-ui';
+import { InputLabel } from 'material-ui/Input';
 
+const styles = theme => ({
+    form: {
+        margin: theme.spacing.unit
+    }
+  });
 
 class InputForm extends Component {
     componentDidMount(){
@@ -21,8 +27,8 @@ class InputForm extends Component {
         const { classes, handleSubmit, submitting } = this.props;
 
         return(
-            
-                <form onSubmit={handleSubmit}>
+            <Paper>            
+                <form onSubmit={handleSubmit} className={ classes.form }>
                     <Grid container spacing={24}>
                         <Grid item xs={12}>
                             <Field 
@@ -43,10 +49,11 @@ class InputForm extends Component {
                             />
                         </Grid>    
                         <Grid item xs={12}>
+                            <InputLabel htmlFor="country">Select country</InputLabel>
                             <Field 
                                 name="country" 
                                 component={Select} 
-                                label="Select country" 
+                                label="Favorite Color"
                                 fullWidth
                             >
                             
@@ -81,7 +88,7 @@ class InputForm extends Component {
                         </Grid>
                     </Grid>
                 </form>
-           
+            </Paper>
         )
     }
 }
@@ -94,5 +101,6 @@ export default compose(
     reduxForm({
         form: 'contact'
         }),
-       connect(mapStateToProps)
+       connect(mapStateToProps),
+       withStyles(styles)
 )(InputForm);

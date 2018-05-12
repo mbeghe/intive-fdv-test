@@ -10,22 +10,14 @@ import { fadeOutMessage } from '../redux/actions';
 const styles = theme => ({
     root: {
       height: 180,
+      margin: theme.spacing.unit
     },
     paper: {
       margin: theme.spacing.unit,
     },
     message: {
         margin: theme.spacing.unit,
-      },
-    svg: {
-      width: 100,
-      height: 100,
-    },
-    polygon: {
-      fill: theme.palette.common.white,
-      stroke: theme.palette.divider,
-      strokeWidth: 1,
-    },
+      }
   });
 class MessageBoard extends Component {
     handleFadeOut = () => {
