@@ -11,9 +11,13 @@ import  Grid  from 'material-ui/Grid';
 import { getCountries } from '../redux/actions';
 import { withStyles } from 'material-ui';
 import { InputLabel } from 'material-ui/Input';
+import { CircularProgress } from 'material-ui/Progress';
 
 const styles = theme => ({
     form: {
+        margin: theme.spacing.unit*1.5
+    },
+    progress: {
         margin: theme.spacing.unit
     }
   });
@@ -49,12 +53,15 @@ class InputForm extends Component {
                             />
                         </Grid>    
                         <Grid item xs={12}>
-                            <InputLabel htmlFor="country">Select country</InputLabel>
+                        <InputLabel htmlFor="country">Select country</InputLabel>
+                        {
+                            this.props.countriesStore.countries ?
+                            
                             <Field 
                                 name="country" 
                                 component={Select} 
-                                label="Favorite Color"
                                 fullWidth
+                                disabled={!this.props.countriesStore.countries}
                             >
                             
                                 {
@@ -66,14 +73,21 @@ class InputForm extends Component {
                                     })
                                 }
                             </Field>
+                            :
+                            <CircularProgress className={classes.progress} />
+                        }
                         </Grid>
-                        <Grid item xs={12}>  
+                        <Grid item xs={12}>
                             <Field 
                                 name="birthday" 
                                 component={TextField} 
-                                label="Birthday"
                                 fullWidth
                                 autoComplete='off'
+                                type='date'
+                                label="Birthday"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12} align='right'>
